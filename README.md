@@ -1,7 +1,5 @@
 # Mal it!
 
----------------------
-
 Covers generator for MAL
 
 ## How to use it
