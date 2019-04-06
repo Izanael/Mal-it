@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <title>Mal it!</title>
+    </head>
+
+    <body class="preload">
+
+        <!-- Titlebar -->
+	    <div id="title-bar">
+            <div id="drag-region">
+                <div id="window-title">
+                    <span>MAL IT!</span>
+                </div>
+                <div id="window-controls">
+                  <div class="button" id="min-button">
+                    <span>&#xE921;</span>
+                  </div>
+                  <div class="button" id="max-button">
+                    <span>&#xE922;</span>
+                  </div>
+                  <div class="button" id="restore-button">
+                    <span>&#xE923;</span>
+                  </div>
+                  <div class="button" id="close-button">
+                    <span>&#xE8BB;</span>
+                  </div>
+                </div>
+              </div>
+        </div>
+
+        <!-- Username -->
+        <div class="username">
+            <form>
+                <div class="inputBox">
+                    <input type="text" name=""  id="formUsername" required="" />
+                    <label>Username</label>
+                </div>
+            </form>
+        </div>
+
+        <!-- CheckBox -->
+        <div class="center">
+            <input type="checkbox" name="" id="checkAnime" checked/>
+            <input type="checkbox" name="" id="checkManga" checked/>
+        </div>
+
+        <!-- Body Box -->
+        <div class="container">
+            <!-- Anime Box -->
+            <div class="box">
+                <div id="boxAnime"></div>
+                <div class="content">
+                    <h2>MAL</h2>
+                    <h3>Anime List</h3>
+                    <p>Choose the kind of cover CSS of your list has and a path to save your file :</p>
+                    <div class="chosen-button" id="buttonAnime">
+                        <select id="selectAnime">
+                            <!--<option value="More" hidden>CSS Type</option>-->
+                            <option>More</option>
+                            <option>AnimeTitle</option>
+                            <option>AnimeTitle:Before</option>
+                        </select>
+                        <a href="#" id="animeBrowse" name="path">Browse...</a>
+                        <input type="text" name="path"  id="formAnime" />
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Manga Box -->
+            <div class="box">
+                    <div class="boxManga"></div>
+                    <div class="content">
+                        <h2>IT!</h2>
+                        <h3>Manga List</h3>
+                        <p>Choose the kind of cover CSS of your list has and a path to save your file :</p>
+                        <div class="chosen-button" id="buttonManga">
+                            <select id="selectManga">
+                                <!--<option value="More" hidden>CSS Type</option>-->
+                                <option>More</option>
+                                <option>AnimeTitle</option>
+                                <option>AnimeTitle:Before</option>
+                            </select>
+                            <a href="#" id="mangaBrowse">Browse...</a>
+                            <input type="text" name="path"  id="formManga" />
+                        </div>     
+                    </div>
+                </div>
+        </div>
+        
+        <!-- Mal it! Button -->
+        <div id="button-mal">
+            <a href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                MAL it!
+            </a>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="hidden">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div id="loading2" class="hidden"></div>
+
+        <!-- Script -->
+        <script>
+            window.$ = window.jQuery = require('jquery');
+            require('../js/default.js');
+            require('../js/url.js');  
+            require('../js/onload.js');
+            require('../js/animation.js');   
+        </script>
+        
+    </body>
+</html>
