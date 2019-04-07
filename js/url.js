@@ -1,6 +1,8 @@
 const Jikan = require('jikan-node');
 const remote = require('electron').remote;
-const {webFrame} = require('electron')
+const settings = require('electron').remote.require('electron-settings');
+const webFrame = require('electron').webFrame;
+
 
 // Set the zoom factor to 85%
 // I worked with zoom out unintentionally :(
@@ -24,6 +26,9 @@ document.getElementById("animeBrowse").addEventListener("click", function (e) {
 		},
 		(file) => {
 			savePathAnime = file;
+			settings.set('browseanime', savePathAnime);
+			var browseTimePathA = Date.now();
+			settings.set('browsetimeanime', browseTimePathA);
 			if(savePathAnime !== undefined) {
 				$('#formAnime').val(`${savePathAnime}`);
 			}
@@ -43,6 +48,9 @@ document.getElementById("mangaBrowse").addEventListener("click", function (e) {
 		},
 		(file) => {
 			savePathManga = file;
+			settings.set('browsemanga', savePathManga);
+			var browseTimePathM = Date.now();
+			settings.set('browsetimemanga', browseTimePathM);
 			if(savePathManga !== undefined) {
 				$('#formManga').val(`${savePathManga}`);
 			}
@@ -170,12 +178,6 @@ async function getBothUrl(user, pathAnime, pathManga, typeA, typeM) {
 	await getImageUrl(user, "mangalist", "all", pathManga, typeM);
 }
 
-function atom () {
-	$('#button-mal').click(function () {
-		$(this).nextUntil('.loading2', 'span').show();
-	})
-}
-
 // Mal it!
 document.getElementById("button-mal").addEventListener("click", async function(e) {
 
@@ -188,6 +190,8 @@ document.getElementById("button-mal").addEventListener("click", async function(e
 	var success = true;
 	savePathAnime = $('#formAnime').val();
 	savePathManga = $('#formManga').val();
+
+	console.log(`${username}`)
 
 	if (username.length !== 0) {
 
@@ -202,7 +206,7 @@ document.getElementById("button-mal").addEventListener("click", async function(e
 			});
 			success = false;
 		}
-		else if(savePathAnime === undefined && checkAnime && !checkManga){
+		else if(savePathAnime === "" && checkAnime && !checkManga){
 			remote.dialog.showMessageBox({
 				type: 'warning',
 				title: 'Warning',
@@ -211,7 +215,7 @@ document.getElementById("button-mal").addEventListener("click", async function(e
 			});
 			success = false;
 		}
-		else if (savePathManga === undefined && checkManga && !checkAnime){
+		else if (savePathManga === "" && checkManga && !checkAnime){
 			remote.dialog.showMessageBox({
 				type: 'warning',
 				title: 'Warning',
@@ -235,29 +239,7 @@ document.getElementById("button-mal").addEventListener("click", async function(e
 			// Loading Animation
 			$('#loading2').removeClass('hidden');
 			$('#loading').removeClass('hidden');
-			if(savePathAnime !== undefined && checkAnime) {
-				await getImageUrl(username, "animelist", "all", savePathAnime, typeAnime);
-
-				remote.dialog.showMessageBox({
-					type: 'info',
-					title: 'Mal it!',
-					message: `Saved in ${savePathAnime}`,
-					buttons: ['OK']
-				});
-			}
-
-			else if(savePathManga !== undefined && checkManga) {
-				await getImageUrl(username, "mangalist", "all", savePathManga, typeManga);
-
-				remote.dialog.showMessageBox({
-					type: 'info',
-					title: 'Mal it!',
-					message: `Saved in ${savePathManga}`,
-					buttons: ['OK']
-				});
-			}
-
-			else if(savePathManga !== undefined && savePathAnime !== undefined && checkAnime && checkManga){
+			if(savePathManga !== "" && savePathAnime !== "" && checkAnime && checkManga){
 				await getBothUrl(username, savePathAnime, savePathManga, typeAnime, typeManga);
 
 				remote.dialog.showMessageBox({
@@ -268,6 +250,30 @@ document.getElementById("button-mal").addEventListener("click", async function(e
 					buttons: ['OK']
 				});
 			}
+
+			else if(savePathAnime !== "" && checkAnime) {
+				await getImageUrl(username, "animelist", "all", savePathAnime, typeAnime);
+
+				remote.dialog.showMessageBox({
+					type: 'info',
+					title: 'Mal it!',
+					message: `Saved in ${savePathAnime}`,
+					buttons: ['OK']
+				});
+			}
+
+			else if(savePathManga !== "" && checkManga) {
+				await getImageUrl(username, "mangalist", "all", savePathManga, typeManga);
+
+				remote.dialog.showMessageBox({
+					type: 'info',
+					title: 'Mal it!',
+					message: `Saved in ${savePathManga}`,
+					buttons: ['OK']
+				});
+			}
+
+			
 			// End Animation
 			$('#loading2').addClass('hidden');
 			$('#loading').addClass('hidden');

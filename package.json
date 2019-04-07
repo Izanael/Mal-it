@@ -1,6 +1,6 @@
 {
 	"name": "mal-it",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Covers generator for MAL",
 	"main": "main.js",
 	"scripts": {
@@ -18,6 +18,7 @@
 		"electron-winstaller": "^3.0.4"
 	},
 	"dependencies": {
+		"electron-settings": "^3.2.0",
 		"jikan-node": "^1.1.2",
 		"jquery": "^3.3.1"
 	}

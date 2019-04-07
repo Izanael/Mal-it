@@ -529,24 +529,6 @@ input:checked[type="checkbox"]:before
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	/*background: rgba(0, 0, 0, 0.8);
-	box-sizing: border-box;
-	box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
-	border-radius: 10px;*/
-}
-
-.username .inputBox
-{
-	position: relative;
-}
-
-:-moz-submit-invalid {
-	box-shadow: none;
-	outline: none;
-} 
-
-:-moz-ui-invalid {
-	box-shadow:none;
 }
 
 .username .inputBox input

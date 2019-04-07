@@ -58,7 +58,7 @@
                     <p>Choose the kind of cover CSS of your list has and a path to save your file :</p>
                     <div class="chosen-button" id="buttonAnime">
                         <select id="selectAnime">
-                            <!--<option value="More" hidden>CSS Type</option>-->
+                            <option value="More" hidden>CSS Type</option>
                             <option>More</option>
                             <option>AnimeTitle</option>
                             <option>AnimeTitle:Before</option>
@@ -79,7 +79,7 @@
                         <p>Choose the kind of cover CSS of your list has and a path to save your file :</p>
                         <div class="chosen-button" id="buttonManga">
                             <select id="selectManga">
-                                <!--<option value="More" hidden>CSS Type</option>-->
+                                <option value="More" hidden>CSS Type</option>
                                 <option>More</option>
                                 <option>AnimeTitle</option>
                                 <option>AnimeTitle:Before</option>
@@ -114,10 +114,16 @@
         <!-- Script -->
         <script>
             window.$ = window.jQuery = require('jquery');
+            require('../js/datapersist.js');
             require('../js/default.js');
             require('../js/url.js');  
             require('../js/onload.js');
             require('../js/animation.js');   
+
+            // Reset data persitence
+            /*const settings = require('electron').remote.require('electron-settings');
+            settings.deleteAll();
+            console.log(settings.getAll());*/
         </script>
         
     </body>

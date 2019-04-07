@@ -17,7 +17,7 @@ function getInstallerConfig () {
 	appDirectory: path.join(outPath, 'mal-it-win32-ia32/'),
 	authors: 'Izanael',
 	noMsi: true,
-	outputDirectory: path.join(outPath, 'windows-installer-ia32'),
+	outputDirectory: path.join(outPath, 'mal-it-installer-32bit'),
 	exe: 'Mal it!.exe',
 	setupExe: 'Mal it!.exe',
 	description: "Mal it! installer"
