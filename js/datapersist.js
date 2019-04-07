@@ -1,8 +1,4 @@
 const settings = require('electron').remote.require('electron-settings');
-const remote = require('electron');
-const globalShortcut = require('electron').globalShortcut;
-//var Mousetrap = require('mousetrap');
-
 
 // Data persistance
 $( function () {
@@ -80,10 +76,7 @@ $( function () {
 	else {
 		$('#formManga').val(settings.get('browsemanga'));
 	}
-	
-	$('#formManga').val(settings.get('pathManga'));
-	$('#formManga').val(settings.get('browsemanga'));
-	// Get Check + Browser
+	// Get Check
 	$('#checkAnime').prop('checked', settings.get('checkanime'));
 	$('#checkManga').prop('checked', settings.get('checkmanga'));
 	// Get Select
