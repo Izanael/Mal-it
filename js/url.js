@@ -3,7 +3,6 @@ const remote = require('electron').remote;
 const settings = require('electron').remote.require('electron-settings');
 const webFrame = require('electron').webFrame;
 
-
 // Set the zoom factor to 85%
 // I worked with zoom out unintentionally :(
 webFrame.setZoomFactor(0.85);
@@ -26,9 +25,7 @@ document.getElementById("animeBrowse").addEventListener("click", function (e) {
 		},
 		(file) => {
 			savePathAnime = file;
-			settings.set('browseanime', savePathAnime);
-			var browseTimePathA = Date.now();
-			settings.set('browsetimeanime', browseTimePathA);
+			settings.set('pathanime', savePathAnime);
 			if(savePathAnime !== undefined) {
 				$('#formAnime').val(`${savePathAnime}`);
 			}
@@ -48,9 +45,7 @@ document.getElementById("mangaBrowse").addEventListener("click", function (e) {
 		},
 		(file) => {
 			savePathManga = file;
-			settings.set('browsemanga', savePathManga);
-			var browseTimePathM = Date.now();
-			settings.set('browsetimemanga', browseTimePathM);
+			settings.set('pathmanga', savePathManga);
 			if(savePathManga !== undefined) {
 				$('#formManga').val(`${savePathManga}`);
 			}
@@ -74,11 +69,18 @@ async function getImageUrl (user, request, data, path, type) {
 			if (typeList.length !== 0) {
 				for(const get of typeList) {
 					let css;
-					url = get.image_url;
+					url = get.image_url.split('?', 1)[0];
 					id = get.mal_id;
-					if(type.toLowerCase() === 'more') {css = `#more${id}{ background-image:url('${url}'); }`;}
-					else if (type.toLowerCase() === 'animetitle') {css = `.animetitle[href*="manga/${id}/"] { background-image:url('${url}'); }`;}
-					else {css = `.animetitle[href*="manga/${id}/"]:before { background-image:url('${url}'); }`;}
+					if(type === 'More') {css = `#more${id}{ background-image:url('${url}'); }`;}
+					else if (type === 'AnimeTitle') {css = `.animetitle[href^="/anime/${id}/"] { background-image:url('${url}'); }`;}
+					else if(type === 'AnimeTitle:Before') {css = `.animetitle[href^="/anime/${id}/"]:before { background-image:url('${url}'); }`;}
+					else if(type === 'AnimeTitle:After') {css = `.animetitle[href^="/anime/${id}/"]:after { background-image:url('${url}'); }`;}
+					else if(type === 'DataTitle') {css = `.data.title [href^="/anime/${id}/"] { background-image:url('${url}'); }`;}
+					else if(type === 'AnimeTitle:Before') {css = `.data.title [href^="/anime/${id}/"]:before { background-image:url('${url}'); }`;}
+					else if(type === 'AnimeTitle:After') {css = `.data.title [href^="/anime/${id}/"]:after { background-image:url('${url}'); }`;}
+					else if(type === 'DataImageLink') {css = `.data.image a[href^="/anime/${id}/"] { background-image:url('${url}'); }`;}
+					else if(type === 'DataImageLink:Before') {css = `.data.image a[href^="/anime/${id}/"]:before { background-image:url('${url}'); }`;}
+					else {css = `.data.image a[href^="/anime/${id}/"]:after { background-image:url('${url}'); }`;}
 					urlListAnime.push(css);
 				}
 				if(typeList.length === 300) {
@@ -121,11 +123,18 @@ async function getImageUrl (user, request, data, path, type) {
 				
 				for(const get of typeList) {
 					let css;
-					url = get.image_url;
+					url = get.image_url.split('?', 1)[0];
 					id = get.mal_id;
-					if(type.toLowerCase() === 'more') {css = `#more${id}{ background-image:url('${url}'); }`;}
-					else if (type.toLowerCase() === 'animetitle') {css = `.animetitle[href*="manga/${id}/"] { background-image:url('${url}'); }`;}
-					else {css = `.animetitle[href*="manga/${id}/"]:before { background-image:url('${url}'); }`;}
+					if(type === 'More') {css = `#more${id}{ background-image:url('${url}'); }`;}
+					else if (type === 'AnimeTitle') {css = `.animetitle[href^="/manga/${id}/"] { background-image:url('${url}'); }`;}
+					else if(type === 'AnimeTitle:Before') {css = `.animetitle[href^="/manga/${id}/"]:before { background-image:url('${url}'); }`;}
+					else if(type === 'AnimeTitle:After') {css = `.animetitle[href^="/manga/${id}/"]:after { background-image:url('${url}'); }`;}
+					else if(type === 'DataTitle') {css = `.data.title [href^="/manga/${id}/"] { background-image:url('${url}'); }`;}
+					else if(type === 'AnimeTitle:Before') {css = `.data.title [href^="/manga/${id}/"]:before { background-image:url('${url}'); }`;}
+					else if(type === 'AnimeTitle:After') {css = `.data.title [href^="/manga/${id}/"]:after { background-image:url('${url}'); }`;}
+					else if(type === 'DataImageLink') {css = `.data.image a[href^="/manga/${id}/"] { background-image:url('${url}'); }`;}
+					else if(type === 'DataImageLink:Before') {css = `.data.image a[href^="/manga/${id}/"]:before { background-image:url('${url}'); }`;}
+					else {css = `.data.image a[href^="/manga/${id}/"]:after { background-image:url('${url}'); }`;}
 					urlListManga.push(css);
 				}
 				if(typeList.length === 300) {
@@ -179,7 +188,7 @@ async function getBothUrl(user, pathAnime, pathManga, typeA, typeM) {
 }
 
 // Mal it!
-document.getElementById("button-mal").addEventListener("click", async function(e) {
+$('#button-mal').click(async function(e) {
 
 	// Initialize
 	var username = document.getElementById('formUsername').value;
@@ -188,13 +197,11 @@ document.getElementById("button-mal").addEventListener("click", async function(e
 	var checkAnime = document.getElementById('checkAnime').checked;
 	var checkManga = document.getElementById('checkManga').checked;
 	var success = true;
-	savePathAnime = $('#formAnime').val();
-	savePathManga = $('#formManga').val();
-
-	console.log(`${username}`)
+	
+	savePathAnime = document.getElementById('formAnime').value;
+	savePathManga = document.getElementById('formManga').value;
 
 	if (username.length !== 0) {
-
 		// Warnings
 		if(!checkAnime && !checkManga) {
 			remote.dialog.showMessageBox({
@@ -272,7 +279,6 @@ document.getElementById("button-mal").addEventListener("click", async function(e
 					buttons: ['OK']
 				});
 			}
-
 			
 			// End Animation
 			$('#loading2').addClass('hidden');

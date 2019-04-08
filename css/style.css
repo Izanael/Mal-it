@@ -363,6 +363,17 @@ input:checked[type="checkbox"]:before
 	/*width: 100%;*/
 }
 
+.box .content select:focus
+{
+	color: #060c21;
+	background: #fff;
+	outline: none;
+	transform: translateY(0);
+	opacity: 1;
+	visibility: visible;
+	/*width: 100%;*/
+}
+
 .content input
 {
 	width: 95%;
@@ -380,12 +391,14 @@ input:checked[type="checkbox"]:before
 	opacity: 0;
 	visibility: hidden;
 	align-self: flex-end;
+	pointer-events: none;
 	transition: 0.5s all 0.5s;
 }
 
 .box .content a:hover ~ input
 {
 	transform: translateY(0);
+	pointer-events: none;
 	opacity: 1;
 	visibility: visible;
 	transition-delay: 0s;

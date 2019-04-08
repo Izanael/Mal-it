@@ -20,6 +20,6 @@ function getInstallerConfig () {
 	outputDirectory: path.join(outPath, 'mal-it-installer-32bit'),
 	exe: 'Mal it!.exe',
 	setupExe: 'Mal it!.exe',
-	description: "Mal it! installer"
+	description: "Mal it!"
   })
 }

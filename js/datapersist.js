@@ -12,16 +12,12 @@ $( function () {
 	// AnimePath Persistence
 	$('#formAnime').keyup(function () {
 		var pathA = $(this).val();
-		var formTimePathA = Date.now();
-		settings.set('formtimeanime', formTimePathA);
 		settings.set('pathanime', pathA);
 	});
 	
 	// MangaPath Persistence
 	$('#formManga').keyup(function () {
 		var pathM = $(this).val();
-		var formTimePathM = Date.now();
-		settings.set('formtimemanga', formTimePathM);
 		settings.set('pathmanga', pathM);
 	});
 
@@ -55,27 +51,8 @@ $( function () {
 	// Get Username
 	$('#formUsername').val(settings.get('username'));
 	// Get last modified Path
-	if(settings.get('browsetimeanime') - settings.get('formtimeanime') > 0) {
-		
-		$('#formAnime').val(settings.get('browseanime'));
-	}
-	else if(settings.get('browsetimeanime') - settings.get('formtimeanime') < 0) { 
-		$('#formAnime').val(settings.get('pathanime')); 
-	}
-	else {
-		$('#formAnime').val(settings.get('browseanime'));
-	}
-
-	if(settings.get('browsetimemanga') - settings.get('formtimemanga') > 0) {
-		
-		$('#formManga').val(settings.get('browsemanga'));
-	}
-	else if(settings.get('browsetimemanga') - settings.get('formtimemanga') < 0) { 
-		$('#formManga').val(settings.get('pathmanga')); 
-	}
-	else {
-		$('#formManga').val(settings.get('browsemanga'));
-	}
+	$('#formAnime').val(settings.get('pathanime')); 
+	$('#formManga').val(settings.get('pathmanga')); 
 	// Get Check
 	$('#checkAnime').prop('checked', settings.get('checkanime'));
 	$('#checkManga').prop('checked', settings.get('checkmanga'));
