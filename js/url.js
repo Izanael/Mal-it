@@ -25,12 +25,13 @@ document.getElementById("animeBrowse").addEventListener("click", function (e) {
 		},
 		(file) => {
 			savePathAnime = file;
-			settings.set('pathanime', savePathAnime);
 			if(savePathAnime !== undefined) {
 				$('#formAnime').val(`${savePathAnime}`);
+				settings.set('pathanime', savePathAnime);
 			}
 			else {
 				savePathAnime =  $('#formAnime').val();
+				settings.set('pathanime', savePathAnime);
 			}
 		}
 		)
@@ -45,12 +46,13 @@ document.getElementById("mangaBrowse").addEventListener("click", function (e) {
 		},
 		(file) => {
 			savePathManga = file;
-			settings.set('pathmanga', savePathManga);
 			if(savePathManga !== undefined) {
 				$('#formManga').val(`${savePathManga}`);
+				settings.set('pathmanga', savePathManga);
 			}
 			else {
 				savePathManga =  $('#formManga').val();
+				settings.set('pathmanga', savePathManga);
 			}
 		}
 		)
