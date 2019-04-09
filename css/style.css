@@ -391,7 +391,6 @@ input:checked[type="checkbox"]:before
 	opacity: 0;
 	visibility: hidden;
 	align-self: flex-end;
-	pointer-events: none;
 	transition: 0.5s all 0.5s;
 }
 
